@@ -18,9 +18,10 @@ Vous pouvez également choisir le nombre de tour que vous voulez faire.
 ## Problèmes
 
 Pour faire jouer nos requins ou nos poissons on va parcourir notre grille et les faires bouger de ligne en ligne. Certaines créatures peuvent donc bouger plus d'une fois dans un tour de jeu. 
-Les requins n'ont pas d'énergie limite à partir du moment ou ils mangent un poisson il gagne +2 d'énergie.
+Les requins n'ont pas d'énergies limite à partir du moment ou ils mangent un poisson ils gagnent +2 d'énergie.
 L'écosystème a tendance à pencher en faveur des requins.
-
+Comme il était indiqué en cours il n'y avait pas la contrainte de faire bouger que les poissons et les requins c'est à dire qu'à chaque fois qu'on boucle dans la grille si un poisson ou un requin bouge vers le bas à la ligne suivante il va rejouer un tour,l'affichage est fait après un tour complet de la grille si un poisson à la case 0.0 est à la case 5.3 c'est normal.
+Pour les requins qui se mangent entre eux vous pouvez tester une grille de 5x4 avec 0 poissons et 20 requins et un temps de reproduction supérieur à leur énergie E ils vont mourrir à tour = E
 
 ## Fabriqué avec
 

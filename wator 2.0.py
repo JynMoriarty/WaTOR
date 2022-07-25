@@ -1,4 +1,5 @@
 from random import randint,choice
+import time
 
 class Fish:
     
@@ -415,34 +416,29 @@ class Aquartorium:
 #####################################################
 #                   INITIALISATION                  #
 #####################################################
-abscisse = int(input("Enter la largueur de la grille  :  "))
+fish_time =0
+shark_time=0
+energy=0
+abscisse = int(input("Enter la largeur de la grille  :  "))
 
 while abscisse <2:
-    abscisse = int(input("Enter la largueur de la grille  :  "))
+    abscisse = int(input("Enter la largeur de la grille  :  "))
 
-ordonne = int(input("Entrer la largueur de la grille  : "))    
+ordonne = int(input("Entrer la longueur de la grille  : "))    
 
 while ordonne <2:
-    ordonne = int(input("Entrer la largueur de la grille  : "))
+    ordonne = int(input("Entrer la longueur de la grille  : "))
 
 fishes_number = int(input("Entrer le nombre de poissons : "))
 sharks_number = int(input("Entrer le nombre de requins : "))
 
-while fishes_number and sharks_number == 0:
-    fishes_number = int(input("Entrer le nombre de poissons : "))
-    sharks_number = int(input("Entrer le nombre de requins : "))
-
-fish_time= int(input("Entrer le temps de reproduction des poissons : "))
-shark_time = int(input("Entrer le temps de reproduction des requins : "))
-
-energy = int(input("Entrez l'énergie des requins : "))
-
-while energy == 0:
-    energy = int(input("Entrez l'énergie des requins : "))
-
-while fish_time and shark_time == 0:
+if fishes_number !=0:
     fish_time= int(input("Entrer le temps de reproduction des poissons : "))
+
+
+if sharks_number!=0:
     shark_time = int(input("Entrer le temps de reproduction des requins : "))
+    energy = int(input("Entrez l'énergie des requins : "))
 
 tour= int(input("Entrer le Nombre de tour que vous voulez faire : "))
 
@@ -462,9 +458,18 @@ p =0
 while p<tour:
     monde.jouer_tour(shark_time,fish_time)
     monde.affiche_grille()
+    time.sleep(1)
     "on affiche la grille à chaque fois qu'un tour complet de la grille à été effectuer : un requin ou un poisson peut bouger plusieurs fois"
     print("############################")
         
     p+=1
 
+
+#Les requins n'ont pas d'énergies limite à partir du moment ou ils mangent un poisson ils gagnent +2 d'énergie.
+#L'écosystème a tendance à pencher en faveur des requins. Comme il était indiqué en cours il n'y avait pas la contrainte de faire bouger que les poissons et les requins
+# c'est à dire qu'à chaque fois qu'on boucle dans la grille si un poisson ou un requin bouge vers le bas à la ligne suivante il va rejouer un tour
+#l'affichage est fait après un tour complet de la grille si un poisson à la case 0.0 est à la case 5.3 c'est normal.
+#Pour les requins qui se mangent entre eux vous pouvez tester une grille de 5x4 avec 0 poissons et 20 requins et
+# un temps de reproduction supérieur à leur énergie E ils vont mourrir à tour = E
+   
 
