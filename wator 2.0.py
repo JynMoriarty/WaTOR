@@ -481,7 +481,7 @@ while p<tour:
     p+=1
 
 
-#Les requins n'ont pas d'énergies limite à partir du moment ou ils mangent un poisson ils gagnent +2 d'énergie.
+
 #L'écosystème a tendance à pencher en faveur des requins. Comme il était indiqué en cours il n'y avait pas la contrainte de faire bouger que les poissons et les requins
 # c'est à dire qu'à chaque fois qu'on boucle dans la grille si un poisson ou un requin bouge vers le bas à la ligne suivante il va rejouer un tour
 #l'affichage est fait après un tour complet de la grille si un poisson à la case 0.0 est à la case 5.3 c'est normal.
