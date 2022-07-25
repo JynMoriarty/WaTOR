@@ -195,7 +195,7 @@ class Shark(Fish):
             return liste
         else : 
             return liste_null
-    def shark_move(self,monde,nRandom,shark_time):
+    def shark_move(self,monde,nRandom,shark_time,energy):
         """création de la méthode de déplacement du requin
         parameters : self , monde.grille  qui est un attribut monde.grille de l'objet de type Aquartorium,nRandom qui est un int : nombre aléatoire qu'on va obtenir
         En fonction de nRandom le poisson va bouger au nord,sud,ouest,est 
@@ -241,12 +241,16 @@ class Shark(Fish):
                 if self.reproduction_time > shark_time:
                     self.reproduction_time =0
                     self.energy += 2
+                    if self.energy > energy:
+                        self.energy = energy
                     self.y = Nord
                     monde.grille[Nord][self.x]= self
                     monde.grille[oldypos][oldxpos] = Shark(0,oldxpos,oldypos,20)
                 else :
                     self.reproduction_time +=1
                     self.energy += 2
+                    if self.energy > energy:
+                        self.energy = energy
                     self.y = Nord
                     monde.grille[Nord][self.x]= self
                     monde.grille[oldypos][oldxpos] = None
@@ -273,12 +277,16 @@ class Shark(Fish):
                 if self.reproduction_time > shark_time:
                     self.reproduction_time =0
                     self.energy +=2
+                    if self.energy > energy:
+                        self.energy = energy
                     self.y=Sud
                     monde.grille[Sud][self.x]= self
                     monde.grille[oldypos][oldxpos]= Shark(0,oldxpos,oldypos,20)
                 else :
                     self.reproduction_time +=1
                     self.energy += 2
+                    if self.energy > energy:
+                        self.energy = energy
                     self.y= Sud
                     monde.grille[Sud][self.x]= self
                     monde.grille[oldypos][oldxpos] = None
@@ -308,12 +316,16 @@ class Shark(Fish):
                 if self.reproduction_time > shark_time:
                     self.reproduction_time =0
                     self.energy += 2
+                    if self.energy > energy:
+                        self.energy = energy
                     self.x = Ouest
                     monde.grille[self.y][Ouest]=self
                     monde.grille[oldypos][oldxpos]= Shark(0,oldxpos,oldypos,20)
                 else :
                     self.reproduction_time +=1
                     self.energy+=2
+                    if self.energy > energy:
+                        self.energy = energy
                     self.x= Ouest
                     monde.grille[self.y][Ouest]= self
                     monde.grille[oldypos][oldxpos] = None
@@ -340,22 +352,26 @@ class Shark(Fish):
                 if self.reproduction_time > shark_time:
                     self.reproduction_time =0
                     self.energy+=2
+                    if self.energy > energy:
+                        self.energy = energy
                     self.x = Est
                     monde.grille[self.y][Est]=self
                     monde.grille[oldypos][oldxpos]= Shark(0,oldxpos,oldypos,20)
                 else :
                     self.reproduction_time +=1
                     self.energy += 2
+                    if self.energy > energy:
+                        self.energy = energy
                     self.x = Est
                     monde.grille[self.y][Est]= self
                     monde.grille[oldypos][oldxpos] = None
                     
-    def shark_play(self,monde,shark_time):
+    def shark_play(self,monde,shark_time,energy):
         nRandom = 0
         liste = []
         liste = self.shark_movements(monde)
         nRandom=choice(liste)
-        self.shark_move(monde,nRandom,shark_time)
+        self.shark_move(monde,nRandom,shark_time,energy)
 
         
 class Aquartorium:
@@ -402,7 +418,7 @@ class Aquartorium:
                     rdnumberx = randint(0,self.ordonne-1)
                     rdnumbery= randint(0,self.abscisse-1)
                 self.grille[rdnumbery][rdnumberx]=Fish(0,rdnumberx,rdnumbery)
-    def jouer_tour(self,shark_time,fish_time):
+    def jouer_tour(self,shark_time,fish_time,energy):
         """la fonction jouer tour ne prend aucun parametre et fait jouer un tour c'est à dire qu'elle va faire bouge tous les créatures dans la grille
         """
         for abscisse in self.grille:
@@ -410,7 +426,7 @@ class Aquartorium:
                 if type(ordonne) ==Fish:
                     ordonne.fish_play(self,fish_time)  
                 elif type(ordonne) == Shark:
-                    ordonne.shark_play(self,shark_time)
+                    ordonne.shark_play(self,shark_time,energy)
             
 
 #####################################################
@@ -456,7 +472,7 @@ p =0
 #####################################################
 
 while p<tour:
-    monde.jouer_tour(shark_time,fish_time)
+    monde.jouer_tour(shark_time,fish_time,energy)
     monde.affiche_grille()
     time.sleep(1)
     "on affiche la grille à chaque fois qu'un tour complet de la grille à été effectuer : un requin ou un poisson peut bouger plusieurs fois"
@@ -470,6 +486,7 @@ while p<tour:
 # c'est à dire qu'à chaque fois qu'on boucle dans la grille si un poisson ou un requin bouge vers le bas à la ligne suivante il va rejouer un tour
 #l'affichage est fait après un tour complet de la grille si un poisson à la case 0.0 est à la case 5.3 c'est normal.
 #Pour les requins qui se mangent entre eux vous pouvez tester une grille de 5x4 avec 0 poissons et 20 requins et
-# un temps de reproduction supérieur à leur énergie E ils vont mourrir à tour = E
+# un temps de reproduction supérieur à leur énergie E ils vont mourrir à tour = E car aucun des requins ne se mangent entre eux
+# pour égaliser le rapport de force entre les requins et les poissons je viens de changer l'energie limite des requins à leur energie de base.
    
 
